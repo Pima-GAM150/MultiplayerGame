@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveCharacter : MonoBehaviour
+public class PlayerStats : MonoBehaviour
 {
-	//public Target targetToMove;
-	//public Target targetToAttack;
+	public int health;
+	public int attack;
+	public int defense;
+	public int movement;
+	
     // Start is called before the first frame update
     void Start()
     {
