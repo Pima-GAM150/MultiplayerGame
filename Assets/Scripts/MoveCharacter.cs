@@ -4,24 +4,29 @@ using UnityEngine;
 
 public class MoveCharacter : MonoBehaviour
 {
-	//public Target targetToMove;
-	//public Target targetToAttack;
-    // Start is called before the first frame update
+	public float speed;
+    public Rigidbody2D rbody;
+    private float xInput;
+    private float yInput;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if ( Input.GetMouseButton (0)){ 
-            RaycastHit hit; 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
-            if ( Physics.Raycast (ray,out hit,100.0f)) {
-                
-                Debug.Log("You selected the " + hit.transform.name); // ensure you picked right object
-            }
+   
+    void Update () {
+        
+        xInput = Input.GetAxis( "Horizontal" );
+        yInput = Input.GetAxis("Vertical");
+        if (xInput < -0.1)
+        {
+            transform.localScale = new Vector2(-1f, 1f);
         }
+        else if (xInput > 0.1) transform.localScale = new Vector2(1f, 1f);;
+    }
+
+    void FixedUpdate() {
+        rbody.velocity = new Vector2( xInput * speed, yInput * speed );
+
     }
 }
