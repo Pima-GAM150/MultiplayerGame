@@ -7,7 +7,7 @@ public class TitleScreenCameraMovement : MonoBehaviour
 	public float speed;
 
 	public Rigidbody2D cam;
-	public GameObject Camera;
+	
 
     void Start()
     {
@@ -18,9 +18,9 @@ public class TitleScreenCameraMovement : MonoBehaviour
     void Update()
     {
        cam.velocity = transform.right * speed;
-       if (Camera.transform.position.x >= )
+       if (cam.transform.position.x >= 47.36f)
 		{
-			Camera. transform = new Vector3(0.32f, 1f, -10f);
+			cam.transform.position = new Vector3(0.32f, 1f, -10f);
 		}
 
    	}
