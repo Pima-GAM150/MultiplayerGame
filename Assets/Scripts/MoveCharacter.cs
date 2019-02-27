@@ -34,6 +34,7 @@ public class MoveCharacter : MonoBehaviourPun, IPunObservable
         else
         {
             sprite.position = Vector3.Lerp(sprite.position, Target.position, speed * Time.deltaTime);
+            sprite.localScale = Vector3.Lerp(sprite.localScale, Target.localScale, speed * Time.deltaTime);
         }
     }
 
