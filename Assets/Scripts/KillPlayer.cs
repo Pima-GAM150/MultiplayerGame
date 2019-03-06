@@ -1,19 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class KillPlayer : MonoBehaviour
 {
-    void OnCollisionEnter2D(Collision2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
-    	if (col.transform.tag == "Player" )
+    	if( !PhotonNetwork.IsMasterClient ) return;
+
+    	if (col.gameObject.tag == "Player" )
     	{
-    		print("I speared the player.");
-    		Destroy();
+    		print(this.transform.parent.name + " was speared by me.");
+    		
+    		PhotonNetwork.Destroy( col.transform.parent.gameObject );
     	}
-    }
-    public void Destroy()
-    {
-    	Destroy(this);
     }
 }
