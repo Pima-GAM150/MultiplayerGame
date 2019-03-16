@@ -6,7 +6,6 @@ TagManager:
   tags:
   - CanMove
   - CantMove
-  - Spear
   layers:
   - Default
   - TransparentFX

@@ -14,24 +14,22 @@ public class MoveCharacter : MonoBehaviourPun, IPunObservable
     public Vector3 LastSyncedPos;
     void Start()
     {
-
+        
     }
 
    
     void Update () {
         if(photonView.IsMine)
         {
+
+        
             xInput = Input.GetAxis( "Horizontal" );
             yInput = Input.GetAxis("Vertical");
-
-            sprite.position = Target.position;
-
-            if( rbody.velocity.x < 0f ) {
-            	sprite.eulerAngles = new Vector3( 0f, 180f, 0f );
+            if (xInput < -0.1)
+            {
+              transform.localScale = new Vector2(-1f, 1f);
             }
-            if( rbody.velocity.x > 0f ) {
-            	sprite.eulerAngles = new Vector3( 0f, 0f, 0f );
-            }
+            else if (xInput > 0.1) transform.localScale = new Vector2(1f, 1f);;
         }
         else
         {
@@ -42,26 +40,19 @@ public class MoveCharacter : MonoBehaviourPun, IPunObservable
 
     void FixedUpdate() {
         rbody.velocity = new Vector2( xInput * speed, yInput * speed );
-    }
 
+    }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
+            LastSyncedPos = Target.position;
+
             stream.SendNext(Target.position);
-            stream.SendNext( rbody.velocity.x );
         }
         else
         {
             Target.position = (Vector3)stream.ReceiveNext();
-            float xVel = (float)stream.ReceiveNext();
-
-            if( xVel < 0f ) {
-            	sprite.eulerAngles = new Vector3( 0f, 180f, 0f );
-            }
-            if( xVel > 0f ) {
-            	sprite.eulerAngles = new Vector3( 0f, 0f, 0f );
-            }
         }
     }
 }
